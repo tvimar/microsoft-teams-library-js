@@ -3,47 +3,9 @@ import './App.css';
 import { app, appInitialization, initialize } from '@microsoft/teams-js';
 import React, { ReactElement } from 'react';
 
-import AppAPIs from './components/AppAPIs';
-import AppEntityAPIs from './components/AppEntityAPIs';
-import AppInitializationAPIs from './components/AppInitialization';
-import AppInstallDialogAPIs from './components/AppInstallDialog';
-import AuthenticationAPIs from './components/AuthenticationAPIs';
-import BarCodeAPIs from './components/BarCodeAPIs';
-import CalendarAPIs from './components/CalendarAPIs';
-import CallAPIs from './components/CallAPIs';
-import DialogAPIs from './components/DialogAPIs';
-import GeoLocationAPIs from './components/GeoLocationAPIs';
-import Links from './components/Links';
-import LocationAPIs from './components/LocationAPIs';
-import LogAPIs from './components/LogsAPIs';
-import MailAPIs from './components/MailAPIs';
-import MediaAPIs from './components/MediaAPIs';
-import MeetingAPIs from './components/MeetingAPIs';
-import MenusAPIs from './components/MenusAPIs';
-import PagesAPIs from './components/PagesAPIs';
-import PagesAppButtonAPIs from './components/PagesAppButtonAPIs';
-import PagesBackStackAPIs from './components/PagesBackStackAPIs';
-import PagesConfigAPIs from './components/PagesConfigAPIs';
-import PagesCurrentAppAPIs from './components/PagesCurrentAppAPIs';
-import PagesTabsAPIs from './components/PagesTabsAPIs';
-import PeopleAPIs from './components/PeopleAPIs';
-import ChatAPIs from './components/privateApis/ChatAPIs';
-import FilesAPIs from './components/privateApis/FilesAPIs';
-import FullTrustAPIs from './components/privateApis/FullTrustAPIs';
-import MeetingRoomAPIs from './components/privateApis/MeetingRoomAPIs';
-import MonetizationAPIs from './components/privateApis/MonetizationAPIs';
-import NotificationAPIs from './components/privateApis/NotificationAPIs';
-import PrivateAPIs from './components/privateApis/PrivateAPIs';
-import TeamsAPIs from './components/privateApis/TeamsAPIs';
-import ProfileAPIs from './components/ProfileAPIs';
-import RemoteCameraAPIs from './components/RemoteCameraAPIs';
-import SearchAPIs from './components/SearchAPIs';
-import SharingAPIs from './components/SharingAPIs';
-import StageViewAPIs from './components/StageViewAPIs';
-import TeamsCoreAPIs from './components/TeamsCoreAPIs';
-import { isTestBackCompat } from './components/utils/isTestBackCompat';
+import MarketAPIs from './components/privateApis/MarketAPIs';
 import Version from './components/Version';
-import WebStorageAPIs from './components/WebStorageAPIs';
+import { isTestBackCompat } from './components/utils/isTestBackCompat';
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -109,48 +71,8 @@ export const generateRegistrationMsg = (changeCause: string): string => {
 
 const App = (): ReactElement => {
   return (
-    <div>
-      <div className="App-container">
-        <AppAPIs />
-        <AppInitializationAPIs />
-        <AppInstallDialogAPIs />
-        <AuthenticationAPIs />
-        <AppEntityAPIs />
-        <BarCodeAPIs />
-        <CalendarAPIs />
-        <CallAPIs />
-        <ChatAPIs />
-        <DialogAPIs />
-        <FilesAPIs />
-        <FullTrustAPIs />
-        <GeoLocationAPIs />
-        <Links />
-        <LocationAPIs />
-        <LogAPIs />
-        <MailAPIs />
-        <MediaAPIs />
-        <MeetingAPIs />
-        <MeetingRoomAPIs />
-        <MenusAPIs />
-        <MonetizationAPIs />
-        <NotificationAPIs />
-        <PagesAPIs />
-        <PagesAppButtonAPIs />
-        <PagesBackStackAPIs />
-        <PagesConfigAPIs />
-        <PagesCurrentAppAPIs />
-        <PagesTabsAPIs />
-        <PeopleAPIs />
-        <PrivateAPIs />
-        <ProfileAPIs />
-        <RemoteCameraAPIs />
-        <SearchAPIs />
-        <SharingAPIs />
-        <WebStorageAPIs />
-        <StageViewAPIs />
-        <TeamsCoreAPIs />
-        <TeamsAPIs />
-      </div>
+    <div style={{ background: '#a2a5f4' }}>
+      <MarketAPIs />
       <Version />
     </div>
   );
