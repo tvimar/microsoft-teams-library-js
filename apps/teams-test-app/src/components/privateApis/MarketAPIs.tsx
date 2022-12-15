@@ -8,6 +8,10 @@ const MockCart = (): React.ReactElement => {
   const [token, setToken] = React.useState<string>('');
   useEffect(() => {
     app.initialize();
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const getCart = () => {
     const callback = (result: string): void => {
       const jwt = parseJwt(result);
       setToken(jwt.name);
@@ -22,10 +26,61 @@ const MockCart = (): React.ReactElement => {
       failureCallback: callback,
     };
     authentication.getAuthToken(authRequest);
-  }, []);
+  };
 
   return (
     <>
+      <button onClick={getCart}>getCart</button>
+      <h3>Token: {token}</h3>
+      <h1>Cart ID: {cart?.id}</h1>
+      <h3>market: {cart?.market}</h3>
+      <h3>intent: {cart?.intent}</h3>
+      <h3>locale: {cart?.locale}</h3>
+      <h3>userId: {cart?.userId}</h3>
+      <h3>tenantId: {cart?.tid}</h3>
+      <h1>CartItems:</h1>
+      <table>
+        <tr>
+          <th>internalItemId</th>
+          <th>externalItemId</th>
+          <th>quantity</th>
+          <th>price</th>
+        </tr>
+        {Object.values(cart ? cart.cartItems : {}).map((item: market.LocalCartItemModel, key) => (
+          <tr key={key}>
+            <th>{item.internalItemId}</th>
+            <th>{item.externalItemId}</th>
+            <th>{item.quantity}</th>
+            <th>{item.price}</th>
+          </tr>
+        ))}
+      </table>
+      <button onClick={getCart}>getCart</button>
+      <h3>Token: {token}</h3>
+      <h1>Cart ID: {cart?.id}</h1>
+      <h3>market: {cart?.market}</h3>
+      <h3>intent: {cart?.intent}</h3>
+      <h3>locale: {cart?.locale}</h3>
+      <h3>userId: {cart?.userId}</h3>
+      <h3>tenantId: {cart?.tid}</h3>
+      <h1>CartItems:</h1>
+      <table>
+        <tr>
+          <th>internalItemId</th>
+          <th>externalItemId</th>
+          <th>quantity</th>
+          <th>price</th>
+        </tr>
+        {Object.values(cart ? cart.cartItems : {}).map((item: market.LocalCartItemModel, key) => (
+          <tr key={key}>
+            <th>{item.internalItemId}</th>
+            <th>{item.externalItemId}</th>
+            <th>{item.quantity}</th>
+            <th>{item.price}</th>
+          </tr>
+        ))}
+      </table>
+      <button onClick={getCart}>getCart</button>
       <h3>Token: {token}</h3>
       <h1>Cart ID: {cart?.id}</h1>
       <h3>market: {cart?.market}</h3>
