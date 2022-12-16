@@ -47,4 +47,18 @@ export namespace market {
       resolve(sendAndHandleSdkError('market.getCart'));
     });
   }
+
+  export function deleteItemFromCart(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      ensureInitialized();
+      resolve(sendAndHandleSdkError('market.deleteItemFromCart'));
+    });
+  }
+
+  export function addItemToCart(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      ensureInitialized();
+      resolve(sendAndHandleSdkError('market.addItemToCart'));
+    });
+  }
 }

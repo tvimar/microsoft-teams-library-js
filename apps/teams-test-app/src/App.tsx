@@ -4,8 +4,8 @@ import { app, appInitialization, initialize } from '@microsoft/teams-js';
 import React, { ReactElement } from 'react';
 
 import MarketAPIs from './components/privateApis/MarketAPIs';
-import Version from './components/Version';
 import { isTestBackCompat } from './components/utils/isTestBackCompat';
+import Version from './components/Version';
 
 const urlParams = new URLSearchParams(window.location.search);
 
