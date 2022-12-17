@@ -1,8 +1,6 @@
 import { app, authentication, market } from '@microsoft/teams-js';
 import React, { useEffect } from 'react';
 
-import { ApiWithoutInput } from '../utils';
-
 const MockCart = (): React.ReactElement => {
   const [cart, setCart] = React.useState<market.LocalCart | null>(null);
   const [token, setToken] = React.useState<string>('');
@@ -30,27 +28,15 @@ const MockCart = (): React.ReactElement => {
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const deleteItemFromCart = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const callback = (result: boolean): void => {
-      market.deleteItemFromCart().then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        result = true;
-      });
-    };
-    callback;
+  const deleteItemFromCart = async () => {
+    const result = await market.deleteItemFromCart();
+    return JSON.stringify(result);
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const addItemToCart = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const callback = (result: boolean): void => {
-      market.addItemToCart().then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        result = true;
-      });
-    };
-    callback;
+  const addItemToCart = async () => {
+    const result = await market.addItemToCart();
+    return JSON.stringify(result);
   };
 
   return (
@@ -102,25 +88,25 @@ function parseJwt(token): { [name: string]: string } {
   return JSON.parse(jsonPayload);
 }
 
-const DeleteItemFromCart = (): React.ReactElement =>
-  ApiWithoutInput({
-    name: 'DeleteItemFromCart',
-    title: 'Delete Item From Cart',
-    onClick: async () => {
-      const result = await market.deleteItemFromCart();
-      return JSON.stringify(result);
-    },
-  });
+// const DeleteItemFromCart = (): React.ReactElement =>
+//   ApiWithoutInput({
+//     name: 'DeleteItemFromCart',
+//     title: 'Delete Item From Cart',
+//     onClick: async () => {
+//       const result = await market.deleteItemFromCart();
+//       return JSON.stringify(result);
+//     },
+//   });
 
-const AddItemToCart = (): React.ReactElement =>
-  ApiWithoutInput({
-    name: 'AddItemToCart',
-    title: 'Add Item To Cart',
-    onClick: async () => {
-      const result = await market.addItemToCart();
-      return JSON.stringify(result);
-    },
-  });
+// const AddItemToCart = (): React.ReactElement =>
+//   ApiWithoutInput({
+//     name: 'AddItemToCart',
+//     title: 'Add Item To Cart',
+//     onClick: async () => {
+//       const result = await market.addItemToCart();
+//       return JSON.stringify(result);
+//     },
+//   });
 
 // const GetCart = (): React.ReactElement =>
 //   ApiWithTextInput<string>({
@@ -143,8 +129,6 @@ const MarketAPIs = (): React.ReactElement => (
   <>
     <h1>market</h1>
     <MockCart />
-    <DeleteItemFromCart />
-    <AddItemToCart />
   </>
 );
 
