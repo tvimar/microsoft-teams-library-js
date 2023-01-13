@@ -5,7 +5,7 @@ const MockCart = (): React.ReactElement => {
   const [cart, setCart] = React.useState<market.LocalCart | null>(null);
   const [token, setToken] = React.useState<string>('');
   useEffect(() => {
-    app.initialize();
+    app.initialize(['admin-local.teams.microsoft.net']);
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
