@@ -56,6 +56,19 @@ const MockCart = (): React.ReactElement => {
     return JSON.stringify(result);
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const changeCartStatus = async (status: string) => {
+    const cartId = cart?.id ?? 'abc';
+
+    const URLSearchParams: market.ChangeCartStatusParams = {
+      cartId,
+      status,
+    };
+
+    const result = await market.changeCartStatus(URLSearchParams);
+    return JSON.stringify(result);
+  };
+
   return (
     <>
       <button onClick={getCart}>getCart</button>
@@ -98,6 +111,7 @@ const MockCart = (): React.ReactElement => {
           </tr>
         ))}
       </table>
+      <button onClick={() => changeCartStatus('Processed')}>change cart status to processed</button>{' '}
     </>
   );
 };

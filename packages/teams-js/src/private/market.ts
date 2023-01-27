@@ -52,6 +52,11 @@ export namespace market {
     quantity: number;
   }
 
+  export interface ChangeCartStatusParams {
+    cartId: string;
+    status: string;
+  }
+
   export function getCart(): Promise<LocalCart> {
     return new Promise<LocalCart>((resolve) => {
       ensureInitialized();
@@ -70,6 +75,13 @@ export namespace market {
     return new Promise<boolean>((resolve) => {
       ensureInitialized();
       resolve(sendAndHandleSdkError('market.addItemToCart', params));
+    });
+  }
+
+  export function changeCartStatus(params: ChangeCartStatusParams): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      ensureInitialized();
+      resolve(sendAndHandleSdkError('market.changeCartStatus', params));
     });
   }
 }
