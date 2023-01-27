@@ -35,6 +35,8 @@ if (
   }
 }
 
+app.notifySuccess();
+
 export const noHostSdkMsg = ' was called, but there was no response from the Host SDK.';
 
 /**

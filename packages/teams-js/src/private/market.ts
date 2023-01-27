@@ -41,6 +41,11 @@ export namespace market {
     [internalItemId: number]: LocalCartItemModel;
   }
 
+  export interface DeleteItemFromCartParams {
+    cartId: string;
+    itemId: string;
+  }
+
   export function getCart(): Promise<LocalCart> {
     return new Promise<LocalCart>((resolve) => {
       ensureInitialized();
@@ -48,10 +53,10 @@ export namespace market {
     });
   }
 
-  export function deleteItemFromCart(): Promise<boolean> {
+  export function deleteItemFromCart(params: DeleteItemFromCartParams): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       ensureInitialized();
-      resolve(sendAndHandleSdkError('market.deleteItemFromCart'));
+      resolve(sendAndHandleSdkError('market.deleteItemFromCart', params));
     });
   }
 

@@ -29,7 +29,15 @@ const MockCart = (): React.ReactElement => {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const deleteItemFromCart = async () => {
-    const result = await market.deleteItemFromCart();
+    const cartId = cart?.id ?? 'abc';
+    const itemId = '249';
+
+    const URLSearchParams: market.DeleteItemFromCartParams = {
+      cartId,
+      itemId,
+    };
+
+    const result = await market.deleteItemFromCart(URLSearchParams);
     return JSON.stringify(result);
   };
 
