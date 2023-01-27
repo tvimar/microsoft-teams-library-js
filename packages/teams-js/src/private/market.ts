@@ -46,6 +46,12 @@ export namespace market {
     itemId: string;
   }
 
+  export interface AddItemToCartParams {
+    cartId: string;
+    itemId: string;
+    quantity: number;
+  }
+
   export function getCart(): Promise<LocalCart> {
     return new Promise<LocalCart>((resolve) => {
       ensureInitialized();
@@ -60,10 +66,10 @@ export namespace market {
     });
   }
 
-  export function addItemToCart(): Promise<boolean> {
+  export function addItemToCart(params: AddItemToCartParams): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       ensureInitialized();
-      resolve(sendAndHandleSdkError('market.addItemToCart'));
+      resolve(sendAndHandleSdkError('market.addItemToCart', params));
     });
   }
 }

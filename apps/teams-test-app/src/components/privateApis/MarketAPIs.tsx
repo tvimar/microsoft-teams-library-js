@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 const MockCart = (): React.ReactElement => {
   const [cart, setCart] = React.useState<market.LocalCart | null>(null);
   const [token, setToken] = React.useState<string>('');
+  const [qInput, setQInput] = React.useState<number>(0);
+
   useEffect(() => {
     app.initialize();
   }, []);
@@ -28,9 +30,8 @@ const MockCart = (): React.ReactElement => {
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const deleteItemFromCart = async () => {
+  const deleteItemFromCart = async (itemId: string) => {
     const cartId = cart?.id ?? 'abc';
-    const itemId = '249';
 
     const URLSearchParams: market.DeleteItemFromCartParams = {
       cartId,
@@ -42,8 +43,16 @@ const MockCart = (): React.ReactElement => {
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const addItemToCart = async () => {
-    const result = await market.addItemToCart();
+  const addItemToCart = async (itemId: string, quantity: number) => {
+    const cartId = cart?.id ?? 'abc';
+
+    const URLSearchParams: market.AddItemToCartParams = {
+      cartId,
+      itemId,
+      quantity,
+    };
+
+    const result = await market.addItemToCart(URLSearchParams);
     return JSON.stringify(result);
   };
 
@@ -64,6 +73,8 @@ const MockCart = (): React.ReactElement => {
           <th>externalItemId</th>
           <th>quantity</th>
           <th>price</th>
+          <th>deleteItemFromCart</th>
+          <th>UpdateItemInCart</th>
         </tr>
         {Object.values(cart ? cart.cartItems : {}).map((item: market.LocalCartItemModel, key) => (
           <tr key={key}>
@@ -71,11 +82,22 @@ const MockCart = (): React.ReactElement => {
             <th>{item.externalItemId}</th>
             <th>{item.quantity}</th>
             <th>{item.price}</th>
+            <th>
+              <button onClick={() => deleteItemFromCart(item.internalItemId.toString())}>deleteItemFromCart</button>{' '}
+            </th>
+            <th>
+              <input
+                type="number"
+                id="input"
+                name="input"
+                onChange={(e) => setQInput(Number(e.currentTarget.value))}
+              ></input>
+              <button onClick={() => addItemToCart(item.internalItemId.toString(), qInput)}>UpdateItemInCart</button>{' '}
+            </th>
+            <br></br>
           </tr>
         ))}
       </table>
-      <button onClick={deleteItemFromCart}>deleteItemFromCart</button> <br></br>
-      <button onClick={addItemToCart}>addItemToCart</button>
     </>
   );
 };
@@ -95,43 +117,6 @@ function parseJwt(token): { [name: string]: string } {
 
   return JSON.parse(jsonPayload);
 }
-
-// const DeleteItemFromCart = (): React.ReactElement =>
-//   ApiWithoutInput({
-//     name: 'DeleteItemFromCart',
-//     title: 'Delete Item From Cart',
-//     onClick: async () => {
-//       const result = await market.deleteItemFromCart();
-//       return JSON.stringify(result);
-//     },
-//   });
-
-// const AddItemToCart = (): React.ReactElement =>
-//   ApiWithoutInput({
-//     name: 'AddItemToCart',
-//     title: 'Add Item To Cart',
-//     onClick: async () => {
-//       const result = await market.addItemToCart();
-//       return JSON.stringify(result);
-//     },
-//   });
-
-// const GetCart = (): React.ReactElement =>
-//   ApiWithTextInput<string>({
-//     name: 'getCart',
-//     title: 'Get local cart Info',
-//     onClick: {
-//       validateInput: input => {
-//         if (!input) {
-//           throw new Error('cart ID is required');
-//         }
-//       },
-//       submit: async input => {
-//         const result = await market.getCart(input);
-//         return JSON.stringify(result);
-//       },
-//     },
-//   });
 
 const MarketAPIs = (): React.ReactElement => (
   <>
