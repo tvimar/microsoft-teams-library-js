@@ -69,6 +69,59 @@ const MockCart = (): React.ReactElement => {
     return JSON.stringify(result);
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const syncOrder = async () => {
+    const order = JSON.stringify({
+      order: {
+        id: 'deadbeef-0000-1111-2222-333344445555',
+        customerID: 416251386,
+        userID: 'd9872269-78ec-44a5-a0dd-e85170635c57',
+        tenantID: 'b1987e6f-608a-4ab6-be7d-398176182665',
+        intent: 'adminUser',
+        market: 'US',
+        orderNumber: 987654321,
+        createdDateTime: '2023-04-10T19:18:20.723Z',
+        modifiedDateTime: '2023-04-10T20:25:00Z',
+        orderModified: true,
+        locale: 'en-US',
+        currency: 'USD',
+        couponCode: '',
+        lineItems: [
+          {
+            name: 'CCX 500 Business Media Phone, Teams Edition, No Handset',
+            id: 8876,
+            parentID: 0,
+            quantity: 1,
+            mpn: '2200-49710-019',
+            price: 354.86,
+            subTotal: 354.86,
+            imgurl: 'https://devices.en-us.unifiedcommunications.com/images/Product/icon/8876.jpg',
+            deliveryInfo: {
+              status: 'OrderPlaced',
+              lastModifiedDate: '2023-04-10T20:25:00Z',
+            },
+            manufacturer: 'Polycom',
+            itemModifiedDate: null,
+            details: [],
+          },
+        ],
+        error: null,
+        subTotal: 354.86,
+        taxTotal: 0.0,
+        shippingTotal: 0.0,
+        discountAmount: 0,
+        total: 354.86,
+        paymentMethod: 'CREDITCARD',
+        estimatedMonthly: null,
+        term: null,
+        relatedOrder: null,
+      },
+    });
+
+    const result = await market.syncOrder(order);
+    return JSON.stringify(result);
+  };
+
   return (
     <>
       <button onClick={getCart}>getCart</button>
@@ -112,6 +165,7 @@ const MockCart = (): React.ReactElement => {
         ))}
       </table>
       <button onClick={() => changeCartStatus('Processed')}>change cart status to processed</button>{' '}
+      <button onClick={() => syncOrder()}>create an order</button>{' '}
     </>
   );
 };

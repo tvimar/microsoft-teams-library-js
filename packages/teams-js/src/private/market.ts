@@ -84,4 +84,11 @@ export namespace market {
       resolve(sendAndHandleSdkError('market.changeCartStatus', params));
     });
   }
+
+  export function syncOrder(JSONorderstring: string): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      ensureInitialized();
+      resolve(sendAndHandleSdkError('market.syncOrder', JSONorderstring));
+    });
+  }
 }
