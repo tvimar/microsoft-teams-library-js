@@ -14,7 +14,7 @@ if (!urlParams.has('customInit') || !urlParams.get('customInit')) {
   if (isTestBackCompat()) {
     initialize();
   } else {
-    app.initialize();
+    app.initialize(['admin-local.teams.microsoft.net']);
   }
 }
 

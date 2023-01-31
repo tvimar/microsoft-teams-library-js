@@ -7,7 +7,7 @@ const MockCart = (): React.ReactElement => {
   const [qInput, setQInput] = React.useState<number>(0);
 
   useEffect(() => {
-    app.initialize();
+    app.initialize(['admin-local.teams.microsoft.net']);
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -71,12 +71,14 @@ const MockCart = (): React.ReactElement => {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const syncOrder = async () => {
+    const tenantId = cart?.tid ?? 'b1987e6f-608a-4ab6-be7d-398176182665';
+
     const order = JSON.stringify({
       order: {
         id: 'deadbeef-0000-1111-2222-333344445555',
         customerID: 416251386,
         userID: 'd9872269-78ec-44a5-a0dd-e85170635c57',
-        tenantID: 'b1987e6f-608a-4ab6-be7d-398176182665',
+        tenantID: tenantId,
         intent: 'adminUser',
         market: 'US',
         orderNumber: 987654321,
@@ -164,8 +166,10 @@ const MockCart = (): React.ReactElement => {
           </tr>
         ))}
       </table>
-      <button onClick={() => changeCartStatus('Processed')}>change cart status to processed</button>{' '}
-      <button onClick={() => syncOrder()}>create an order</button>{' '}
+      <button onClick={() => changeCartStatus('Processed')}>
+        change cart status to processed (call getCart first)
+      </button>{' '}
+      <button onClick={() => syncOrder()}>create a sample order for tenant (call getCart first)</button>{' '}
     </>
   );
 };
