@@ -57,6 +57,53 @@ export namespace market {
     status: string;
   }
 
+  export interface OrderModel {
+    id: string;
+    customerID: number;
+    userID: string;
+    tenantID: string;
+    intent: string;
+    market: string;
+    orderNumber: number;
+    createdDateTime: string;
+    modifiedDateTime: string;
+    orderModified: boolean;
+    locale: string;
+    currency: string;
+    couponCode: string;
+    lineItems: OrderItemModel[];
+    error: string;
+    subTotal: number;
+    taxTotal: number;
+    shippingTotal: number;
+    discountAmount: number;
+    total: number;
+    paymentMethod: string;
+    estimatedMonthly: string;
+    term: string;
+    relatedOrder?: OrderModel;
+  }
+
+  export interface OrderItemModel {
+    name: string;
+    id: number;
+    parentID: number;
+    quantity: number;
+    mpn: string;
+    price: number;
+    subTotal: number;
+    imgurl: string;
+    deliveryInfo: DeliveryInfoModel;
+    manufacturer: string;
+    itemModifiedDate: string;
+    details: [];
+  }
+
+  export interface DeliveryInfoModel {
+    status: string;
+    lastModifiedDate: string;
+  }
+
   export function getCart(): Promise<LocalCart> {
     return new Promise<LocalCart>((resolve) => {
       ensureInitialized();
