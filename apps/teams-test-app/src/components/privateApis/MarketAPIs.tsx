@@ -72,86 +72,20 @@ const MockCart = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const syncOrder = async () => {
     const tenantId = cart?.tid ?? 'b1987e6f-608a-4ab6-be7d-398176182665';
-    const itemArr: market.OrderItemModel[] = [];
-    let totalPrice = 0.0;
-
-    // Object.values(cart ? cart.cartItems : {}).map((item: market.LocalCartItemModel, key) => (
-    //   var test = item.name;
-    //   var newItem: market.OrderItemModel = {
-    //     name = item.name,
-
-    //   }
-    // ));
-
-    if (Array.isArray(cart?.cartItems)) {
-      cart?.cartItems.forEach((cartItem) => {
-        const orderItem: market.OrderItemModel = {
-          name: cartItem.name,
-          id: cartItem.externalItemId,
-          parentID: 0,
-          quantity: cartItem.quantity,
-          mpn: cartItem.mpn,
-          price: cartItem.price,
-          subTotal: cartItem.price * cartItem.quantity,
-          imgurl: cartItem.imageURL,
-          deliveryInfo: {
-            status: 'OrderPlaced',
-            lastModifiedDate: new Date().toISOString(),
-          },
-          manufacturer: 'test',
-          itemModifiedDate: new Date().toISOString(),
-          details: [],
-        };
-        totalPrice = totalPrice + cartItem.price * cartItem.quantity;
-        itemArr.push(orderItem);
-      });
-    }
-
-    const orderModel: market.OrderModel = {
-      id: cart?.id ?? 'testCartid',
-      customerID: 123456789,
-      userID: cart?.userId ?? 'testUserId',
-      tenantID: tenantId,
-      intent: cart?.intent ?? 'adminUser',
-      market: cart?.market ?? 'US',
-      orderNumber: 987654321,
-      createdDateTime: new Date().toISOString(),
-      modifiedDateTime: new Date().toISOString(),
-      orderModified: false,
-      locale: cart?.locale ?? 'en-US',
-      currency: 'USD',
-      couponCode: '',
-      lineItems: itemArr,
-      error: '',
-      subTotal: totalPrice,
-      taxTotal: 0,
-      shippingTotal: 0,
-      discountAmount: 0,
-      total: totalPrice,
-      paymentMethod: 'CREDITCARD',
-      estimatedMonthly: '',
-      term: '',
-    };
-
-    // const order = JSON.stringify({
-    //   order: orderModel,
-    // });
-
-    /////////
 
     const order = JSON.stringify({
       order: {
-        id: cart?.id ?? 'testCartid',
-        customerID: 123456789,
-        userID: cart?.userId ?? 'testUserId',
+        id: 'deadbeef-0000-1111-2222-333344445555',
+        customerID: 416251386,
+        userID: 'd9872269-78ec-44a5-a0dd-e85170635c57',
         tenantID: tenantId,
-        intent: cart?.intent ?? 'adminUser',
-        market: cart?.market ?? 'US',
+        intent: 'adminUser',
+        market: 'US',
         orderNumber: 987654321,
         createdDateTime: new Date().toISOString(),
         modifiedDateTime: new Date().toISOString(),
-        orderModified: false,
-        locale: cart?.locale ?? 'en-US',
+        orderModified: true,
+        locale: 'en-US',
         currency: 'USD',
         couponCode: '',
         lineItems: [
@@ -166,7 +100,7 @@ const MockCart = (): React.ReactElement => {
             imgurl: 'https://devices.en-us.unifiedcommunications.com/images/Product/icon/8876.jpg',
             deliveryInfo: {
               status: 'OrderPlaced',
-              lastModifiedDate: '2023-04-10T20:25:00Z',
+              lastModifiedDate: new Date().toISOString(),
             },
             manufacturer: 'Polycom',
             itemModifiedDate: null,
@@ -174,66 +108,17 @@ const MockCart = (): React.ReactElement => {
           },
         ],
         error: null,
-        subTotal: totalPrice,
+        subTotal: 354.86,
         taxTotal: 0.0,
         shippingTotal: 0.0,
         discountAmount: 0,
-        total: totalPrice,
+        total: 354.86,
         paymentMethod: 'CREDITCARD',
         estimatedMonthly: null,
         term: null,
         relatedOrder: null,
       },
     });
-
-    //// stringify
-
-    // const order = JSON.stringify({
-    //   order: {
-    //     id: 'deadbeef-0000-1111-2222-333344445555',
-    //     customerID: 416251386,
-    //     userID: 'd9872269-78ec-44a5-a0dd-e85170635c57',
-    //     tenantID: tenantId,
-    //     intent: 'adminUser',
-    //     market: 'US',
-    //     orderNumber: 987654321,
-    //     createdDateTime: '2023-04-10T19:18:20.723Z',
-    //     modifiedDateTime: '2023-04-10T20:25:00Z',
-    //     orderModified: true,
-    //     locale: 'en-US',
-    //     currency: 'USD',
-    //     couponCode: '',
-    //     lineItems: [
-    //       {
-    //         name: 'CCX 500 Business Media Phone, Teams Edition, No Handset',
-    //         id: 8876,
-    //         parentID: 0,
-    //         quantity: 1,
-    //         mpn: '2200-49710-019',
-    //         price: 354.86,
-    //         subTotal: 354.86,
-    //         imgurl: 'https://devices.en-us.unifiedcommunications.com/images/Product/icon/8876.jpg',
-    //         deliveryInfo: {
-    //           status: 'OrderPlaced',
-    //           lastModifiedDate: '2023-04-10T20:25:00Z',
-    //         },
-    //         manufacturer: 'Polycom',
-    //         itemModifiedDate: null,
-    //         details: [],
-    //       },
-    //     ],
-    //     error: null,
-    //     subTotal: 354.86,
-    //     taxTotal: 0.0,
-    //     shippingTotal: 0.0,
-    //     discountAmount: 0,
-    //     total: 354.86,
-    //     paymentMethod: 'CREDITCARD',
-    //     estimatedMonthly: null,
-    //     term: null,
-    //     relatedOrder: null,
-    //   },
-    // });
 
     const result = await market.syncOrder(order);
     return JSON.stringify(result);
