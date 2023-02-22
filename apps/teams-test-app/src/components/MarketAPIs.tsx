@@ -1,8 +1,8 @@
-import { app, authentication, market } from '@microsoft/teams-js';
+import { app, authentication, monetization } from '@microsoft/teams-js';
 import React, { useEffect } from 'react';
 
 const MockCart = (): React.ReactElement => {
-  const [cart, setCart] = React.useState<market.LocalCart | null>(null);
+  const [cart, setCart] = React.useState<monetization.market.LocalCart | null>(null);
   const [token, setToken] = React.useState<string>('');
   const [qInput, setQInput] = React.useState<number>(0);
 
@@ -17,7 +17,7 @@ const MockCart = (): React.ReactElement => {
       setToken(jwt.name);
       console.log(jwt.name);
       console.log(result);
-      setCart(await market.getCart());
+      setCart(await monetization.market.getCart());
       // market.getCart().then((result: market.LocalCart) => {
       //   setCart(result);
       // });
@@ -33,12 +33,12 @@ const MockCart = (): React.ReactElement => {
   const deleteItemFromCart = async (itemId: string) => {
     const cartId = cart?.id ?? 'abc';
 
-    const URLSearchParams: market.DeleteItemFromCartParams = {
+    const URLSearchParams: monetization.market.DeleteItemFromCartParams = {
       cartId,
       itemId,
     };
 
-    const result = await market.deleteItemFromCart(URLSearchParams);
+    const result = await monetization.market.deleteItemFromCart(URLSearchParams);
     return JSON.stringify(result);
   };
 
@@ -46,13 +46,13 @@ const MockCart = (): React.ReactElement => {
   const addItemToCart = async (itemId: string, quantity: number) => {
     const cartId = cart?.id ?? 'abc';
 
-    const URLSearchParams: market.AddItemToCartParams = {
+    const URLSearchParams: monetization.market.AddItemToCartParams = {
       cartId,
       itemId,
       quantity,
     };
 
-    const result = await market.addItemToCart(URLSearchParams);
+    const result = await monetization.market.addItemToCart(URLSearchParams);
     return JSON.stringify(result);
   };
 
@@ -60,12 +60,12 @@ const MockCart = (): React.ReactElement => {
   const changeCartStatus = async (status: string) => {
     const cartId = cart?.id ?? 'abc';
 
-    const URLSearchParams: market.ChangeCartStatusParams = {
+    const URLSearchParams: monetization.market.ChangeCartStatusParams = {
       cartId,
       status,
     };
 
-    const result = await market.changeCartStatus(URLSearchParams);
+    const result = await monetization.market.changeCartStatus(URLSearchParams);
     return JSON.stringify(result);
   };
 
@@ -120,7 +120,7 @@ const MockCart = (): React.ReactElement => {
       },
     });
 
-    const result = await market.syncOrder(order);
+    const result = await monetization.market.syncOrder(order);
     return JSON.stringify(result);
   };
 
@@ -144,7 +144,7 @@ const MockCart = (): React.ReactElement => {
           <th>deleteItemFromCart</th>
           <th>UpdateItemInCart</th>
         </tr>
-        {Object.values(cart ? cart.cartItems : {}).map((item: market.LocalCartItemModel, key) => (
+        {Object.values(cart ? cart.cartItems : {}).map((item: monetization.market.LocalCartItemModel, key) => (
           <tr key={key}>
             <th>{item.internalItemId}</th>
             <th>{item.externalItemId}</th>
