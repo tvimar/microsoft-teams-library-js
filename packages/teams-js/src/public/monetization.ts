@@ -205,10 +205,14 @@ export namespace monetization {
     }
 
     export function getCart(): Promise<LocalCart> {
-      return new Promise<LocalCart>((resolve) => {
-        ensureInitialized();
-        resolve(sendAndHandleSdkError('monetization.market.getCart'));
-      });
+      if (isSupported()) {
+        return new Promise<LocalCart>((resolve) => {
+          ensureInitialized();
+          resolve(sendAndHandleSdkError('monetization.market.getCart'));
+        });
+      } else {
+        throw errorNotSupportedOnPlatform;
+      }
     }
 
     export function deleteItemFromCart(params: DeleteItemFromCartParams): Promise<boolean> {
@@ -237,6 +241,11 @@ export namespace monetization {
         ensureInitialized();
         resolve(sendAndHandleSdkError('monetization.market.syncOrder', JSONorderstring));
       });
+    }
+
+    export function isSupported(): boolean {
+      ensureInitialized();
+      return runtime.supports.monetization ? (runtime.supports.monetization.market ? true : false) : false;
     }
   }
 }

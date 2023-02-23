@@ -30,7 +30,9 @@ export interface IRuntime {
     readonly mail?: {};
     readonly meetingRoom?: {};
     readonly menus?: {};
-    readonly monetization?: {};
+    readonly monetization?: {
+      readonly market?: {};
+    };
     readonly notifications?: {};
     readonly pages?: {
       readonly appButton?: {};
